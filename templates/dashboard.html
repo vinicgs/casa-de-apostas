@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex-between mb-2">
+    <div>
+        <h1 class="title">Clientes</h1>
+        <p class="subtitle m-0">Gerencie todos os clientes da plataforma</p>
+    </div>
+    <a href="{{ url_for('create_client') }}" class="btn">+ Adicionar Cliente</a>
+</div>
+
+{% if not clients %}
+<div class="card text-center p-empty">
+    <p class="text-muted">Nenhum cliente encontrado.</p>
+</div>
+{% endif %}
+
+{% for client in clients %}
+<div class="list-item">
+    <div>
+        <h3 class="text-white text-lg">{{ client.full_name }}</h3>
+        <div class="flex gap-05">
+            <span class="badge">Registrado em: {{ client.registration_date }}</span>
+            {% if client.emails %}<span class="badge">✉️ {{ client.emails.split(',')[0] }}</span>{% endif %}
+            {% if client.phones %}<span class="badge">📱 {{ client.phones.split(',')[0] }}</span>{% endif %}
+        </div>
+    </div>
+    <div class="flex-actions">
+        <a href="{{ url_for('edit_client', id=client.id) }}" class="btn btn-ghost btn-icon">
+            ✏️ Editar
+        </a>
+        <form action="{{ url_for('delete_client', id=client.id) }}" method="POST"
+            onsubmit="return confirm('Tem certeza?');" class="action-form">
+            <button type="submit" class="btn btn-danger btn-icon">
+                🗑️ Excluir
+            </button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

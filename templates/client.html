@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mb-2">
+    <a href="{{ url_for('dashboard') }}" class="text-muted no-underline">← Voltar ao
+        Dashboard</a>
+</div>
+
+<div class="card">
+    <h1 class="title">{{ action }} Cliente</h1>
+    <p class="subtitle">Preencha os dados principais</p>
+
+    <form method="POST" action="{{ url_for('edit_client', id=client.id) if client and client.id else url_for('create_client') }}">
+        <label>Nome Completo</label>
+        <input type="text" name="full_name" value="{{ client.full_name if client else '' }}" required>
+
+        <label>E-mails (separe por vírgula)</label>
+        <input type="text" name="emails" value="{{ client.emails if client else '' }}"
+            placeholder="email1@teste.com, email2@teste.com">
+
+        <label>Telefones (separe por vírgula)</label>
+        <input type="text" name="phones" value="{{ client.phones if client else '' }}"
+            placeholder="(11) 9999-9999, (11) 8888-8888">
+
+        <div class="flex mt-1">
+            <button type="submit" class="btn">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+
+<!-- SE FOR EDIÇÃO, MOSTRA OS CONTATOS DESSE CLIENTE -->
+{% if client %}
+<div class="flex-between my-3-15">
+    <h2 class="font-medium">Contatos Vinculados</h2>
+    <a href="{{ url_for('create_contact', client_id=client.id) }}" class="btn btn-ghost btn-sm">+
+        Add Contato</a>
+</div>
+
+{% if not contacts %}
+<p class="text-muted">Nenhum contato vinculado a este cliente.</p>
+{% endif %}
+
+{% for contact in contacts %}
+<div class="list-item darker">
+    <div>
+        <h4 class="text-white mb-03">{{ contact.full_name }}</h4>
+        <p class="text-muted text-sm">
+            Emails: {{ contact.emails or 'Nenhum' }} | Telefones: {{ contact.phones or 'Nenhum' }}
+        </p>
+    </div>
+    <div class="flex-actions">
+        <a href="{{ url_for('edit_contact', id=contact.id) }}" class="btn btn-ghost btn-icon">
+            ✏️ Editar
+        </a>
+        <form action="{{ url_for('delete_contact', id=contact.id) }}" method="POST"
+            onsubmit="return confirm('Excluir contato?');" class="action-form">
+            <button type="submit" class="btn btn-danger btn-icon">
+                🗑️ Excluir
+            </button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

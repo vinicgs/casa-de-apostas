@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mb-2">
+    <a href="{{ url_for('edit_client', id=client_id) }}" class="text-muted no-underline">←
+        Voltar para o Cliente ({{ client_name }})</a>
+</div>
+
+<div class="card">
+    <h1 class="title">{{ action }} Contato</h1>
+    <p class="subtitle">Vincular a: <strong>{{ client_name }}</strong></p>
+
+    <form method="POST" action="{{ url_for('edit_contact', id=contact.id) if contact and contact.id else url_for('create_contact', client_id=client_id) }}">
+        <label>Nome do Contato</label>
+        <input type="text" name="full_name" value="{{ contact.full_name if contact else '' }}" required>
+
+        <label>E-mails do Contato (separe por vírgula)</label>
+        <input type="text" name="emails" value="{{ contact.emails if contact else '' }}">
+
+        <label>Telefones do Contato (separe por vírgula)</label>
+        <input type="text" name="phones" value="{{ contact.phones if contact else '' }}">
+
+        <button type="submit" class="btn">Salvar Contato</button>
+    </form>
+</div>
+{% endblock %}

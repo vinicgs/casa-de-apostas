@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex-between mb-2">
+    <div>
+        <h1 class="title">Relatório Geral</h1>
+        <p class="subtitle m-0">Listagem de todos os clientes e seus contatos</p>
+    </div>
+    <a href="{{ url_for('report_pdf') }}" class="btn btn-ghost no-underline">🖨️ Baixar PDF</a>
+</div>
+
+{% for data in report_data %}
+<div class="card report-card">
+    <div class="report-header">
+        <h2 class="text-white">{{ data.client.full_name }}</h2>
+        <div class="report-badges">
+            <span>📅 {{ data.client.registration_date }}</span>
+            <span>✉️ {{ data.client.emails or 'Nenhum' }}</span>
+            <span>📱 {{ data.client.phones or 'Nenhum' }}</span>
+        </div>
+    </div>
+
+    <h4 class="text-muted mb-1">Contatos Relacionados ({{ data.contacts|length }})</h4>
+
+    {% if not data.contacts %}
+    <p class="report-empty">Nenhum contato encontrado.</p>
+    {% endif %}
+
+    <div class="report-grid">
+        {% for contact in data.contacts %}
+        <div class="contact-box">
+            <strong class="contact-name">👤 {{ contact.full_name }}</strong>
+            <div class="contact-details">
+                <div><strong>E-mail:</strong> {{ contact.emails or '-' }}</div>
+                <div><strong>Tel:</strong> {{ contact.phones or '-' }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
