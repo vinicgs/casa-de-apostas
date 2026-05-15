@@ -1,4 +1,4 @@
-# Casa de Apostas - Desafio Fullstack
+# Desafio Fullstack
 
 Este projeto foi desenvolvido como resolução do desafio de programação para a vaga de Desenvolvedor Fullstack. Trata-se de um sistema web completo para o cadastro de Clientes e gerenciamento de seus respectivos Contatos vinculados, com relatórios em PDF e autenticação segura.
 
@@ -14,8 +14,6 @@ A stack foi escolhida pensando em simplicidade de execução.
 ---
 
 ## 🛠️ Como rodar o projeto localmente
-
-A grande vantagem dessa arquitetura é que o avaliador **não precisa instalar banco de dados** ou configurações complexas. Tudo já está embutido!
 
 ### Pré-requisitos
 - **Python 3.8+** instalado na máquina.
