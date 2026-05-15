@@ -184,6 +184,7 @@ input:focus {
     display: flex;
     gap: 1rem;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .flex-actions {
@@ -202,6 +203,17 @@ input:focus {
     justify-content: space-between;
     align-items: center;
     transition: 0.2s;
+    overflow: hidden;
+}
+
+.list-item > div:first-child {
+    min-width: 0;
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.list-item h3 {
+    word-break: break-word;
 }
 
 .list-item.darker {
@@ -220,6 +232,10 @@ input:focus {
     font-size: 0.8rem;
     border: 1px solid var(--border);
     color: var(--text-muted);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Alerts */
@@ -274,6 +290,8 @@ input:focus {
     margin-top: 0.5rem; 
     font-size: 0.9rem; 
     color: var(--text-muted);
+    flex-wrap: wrap;
+    word-break: break-all;
 }
 .report-empty {
     font-size: 0.9rem; 
@@ -295,9 +313,11 @@ input:focus {
     color: #e2e8f0; 
     display: block; 
     margin-bottom: 0.5rem;
+    word-break: break-word;
 }
 .contact-details {
     font-size: 0.85rem; 
     color: var(--text-muted); 
     line-height: 1.5;
+    word-break: break-all;
 }

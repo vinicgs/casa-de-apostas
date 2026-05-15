@@ -4,7 +4,7 @@ def validate_contact_info(emails_str, phones_str):
     if emails_str:
         for email in emails_str.split(','):
             email = email.strip()
-            if email and not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            if email and not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
                 return False, f"O e-mail '{email}' é inválido."
     if phones_str:
         for phone in phones_str.split(','):

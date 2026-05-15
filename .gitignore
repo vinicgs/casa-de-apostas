@@ -16,3 +16,6 @@ app.db
 .vscode/
 .idea/
 .DS_Store
+
+# Pastas de teste/validação
+validation_env/
